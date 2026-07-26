@@ -24,6 +24,7 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
@@ -596,37 +597,3 @@ footer {
   }
 }
 
-/* Force dark mode - this is the brand theme */
-@media (prefers-color-scheme: light) {
-  /* Light mode users still get dark theme - this is intentional branding */
-  body {
-    background: linear-gradient(165deg, var(--color-bg-gradient-1) 0%, var(--color-bg-gradient-2) 35%, var(--color-bg-gradient-3) 70%, var(--color-bg-gradient-4) 100%) !important;
-    background-attachment: fixed !important;
-    color: var(--color-text-primary) !important;
-  }
-
-  body::before {
-    background: radial-gradient(ellipse at 50% 20%, rgba(70, 132, 255, 0.28), transparent 60%) !important;
-  }
-
-  header {
-    background: rgba(6, 10, 22, 0.7) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-  }
-
-  .glass-card,
-  .faq-item {
-    background: var(--color-glass-bg) !important;
-    border-color: var(--color-glass-border) !important;
-  }
-
-  .privacy-strip,
-  .disclaimer {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-  }
-
-  a {
-    color: var(--color-brand-blue) !important;
-  }
-}
