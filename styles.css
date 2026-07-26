@@ -397,6 +397,15 @@ header {
   background: var(--color-brand-blue);
 }
 
+/* The track's own clipping window. Without it, slides translating leftwards
+   pass underneath the copy column instead of disappearing behind its edge. */
+.pin.is-pinned .pin-viewport {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  align-self: center;
+}
+
 .pin.is-pinned .pin-track {
   flex-direction: row;
   align-items: center;

@@ -94,11 +94,12 @@ function initPinnedGallery() {
   if (!pin) return;
 
   const stage = pin.querySelector('.pin-stage');
+  const viewport = pin.querySelector('.pin-viewport');
   const track = pin.querySelector('.pin-track');
   const copy = pin.querySelector('.pin-copy');
   const rail = pin.querySelectorAll('.pin-rail li');
   const slides = Array.prototype.slice.call(pin.querySelectorAll('.slide'));
-  if (!stage || !track || !slides.length) return;
+  if (!stage || !viewport || !track || !slides.length) return;
 
   const wide = window.matchMedia('(min-width: 1024px)');
   const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -135,13 +136,10 @@ function initPinnedGallery() {
     track.style.paddingLeft = '0px';
     track.style.paddingRight = '0px';
 
-    const stageBox = stage.getBoundingClientRect();
-    const trackBox = track.getBoundingClientRect();
-
-    // The track is only visible from where it starts to the stage's right edge.
-    viewLeft = trackBox.left;
-    viewRight = stageBox.right;
-    const visible = viewRight - viewLeft;
+    const viewBox = viewport.getBoundingClientRect();
+    viewLeft = viewBox.left;
+    viewRight = viewBox.right;
+    const visible = viewport.clientWidth;
 
     // Pad both ends by half the leftover width so the first slide sits centred
     // at rest and the last sits centred at the end — otherwise the run opens
