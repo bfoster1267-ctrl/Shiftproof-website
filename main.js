@@ -141,14 +141,18 @@ function initPinnedGallery() {
     viewRight = viewBox.right;
     const visible = viewport.clientWidth;
 
-    // Pad both ends by half the leftover width so the first slide sits centred
-    // at rest and the last sits centred at the end — otherwise the run opens
-    // and closes on an off-centre slide.
+    // Lead padding centres the first slide at rest.
     const lead = Math.max(0, (visible - slides[0].offsetWidth) / 2);
     track.style.paddingLeft = lead + 'px';
     track.style.paddingRight = lead + 'px';
 
-    maxShift = Math.max(0, track.scrollWidth - visible);
+    // Travel is measured from the last slide's own geometry, not scrollWidth:
+    // flex containers drop trailing padding from scrollWidth, which left the
+    // run ending short so the final slide never reached centre and never
+    // became active.
+    const centre = (viewLeft + viewRight) / 2;
+    const lastBox = slides[slides.length - 1].getBoundingClientRect();
+    maxShift = Math.max(0, lastBox.left + lastBox.width / 2 - centre);
 
     // Pinned distance equals the travel exactly, so the section releases the
     // moment the final slide lands — no dead scroll at either end.
