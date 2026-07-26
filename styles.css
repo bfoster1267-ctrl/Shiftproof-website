@@ -924,13 +924,19 @@ footer {
 
 .worked-example-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
+  gap: 0.35rem 1rem;
   padding-bottom: 1.25rem;
   margin-bottom: 1.25rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   font-weight: 600;
   color: var(--color-text-secondary);
+}
+
+.worked-example-header > span:first-child {
+  white-space: nowrap;
 }
 
 .worked-example-total {
