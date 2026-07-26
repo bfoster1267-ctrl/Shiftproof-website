@@ -108,7 +108,7 @@ function initPinnedGallery() {
   let viewLeft = 0;
   let viewRight = 0;
   let active = -1;
-  let ticking = false;
+  let lastY = -1;
   let enabled = false;
 
   // Copy for the left column, read out of each slide's own caption so the two
@@ -199,13 +199,22 @@ function initPinnedGallery() {
     setCopy(best);
   }
 
-  function onScroll() {
-    if (ticking || !enabled) return;
-    ticking = true;
-    window.requestAnimationFrame(function () {
-      render();
-      ticking = false;
-    });
+  /*
+   * A self-perpetuating frame loop rather than a scroll listener guarded by a
+   * "pending frame" flag. That flag latches true forever if its rAF callback
+   * never runs — which happens whenever the tab is backgrounded mid-scroll —
+   * and the gallery then freezes for the rest of the session. Comparing the
+   * scroll position once per frame cannot wedge and costs nothing when idle.
+   */
+  function frame() {
+    if (enabled) {
+      const y = window.scrollY;
+      if (y !== lastY) {
+        lastY = y;
+        render();
+      }
+    }
+    window.requestAnimationFrame(frame);
   }
 
   function sync() {
@@ -223,7 +232,6 @@ function initPinnedGallery() {
     measure();
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', sync);
   if (wide.addEventListener) {
     wide.addEventListener('change', sync);
@@ -236,4 +244,5 @@ function initPinnedGallery() {
   });
 
   sync();
+  window.requestAnimationFrame(frame);
 }
