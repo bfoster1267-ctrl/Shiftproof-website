@@ -46,7 +46,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=4">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%235C8DFF'>$</text></svg>">
 </head>
 <body>
@@ -78,24 +78,76 @@
     </div>
   </section>
 
-  <!-- Feature gallery: the App Store slides, shown whole -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="shot-grid">
-        <figure class="shot">
-          <img src="assets/web/ShiftProof-01-KnowYourNextPaycheck.jpg" width="800" height="1734" alt="Pay Period Detail screen showing 57.50 expected worked hours split into 40.00 regular and 17.50 overtime, for an expected gross pay of $2,730.50, above the list of shifts in that period.">
+  <!-- Feature gallery.
+       The source PNGs are 1290x2796 App Store compositions; the device sits at
+       x 265-1024 in every one of them. .device crops to just the phone so the
+       headlines can be real web type instead of pixels. --crop-y is the only
+       per-slide value: the comps differ solely in vertical offset. -->
+  <section id="features" class="pin">
+    <div class="pin-stage">
+      <div class="pin-copy">
+        <p class="eyebrow" data-copy="eyebrow">Pay periods</p>
+        <h2 data-copy="title">Know what the check should say.</h2>
+        <p data-copy="body">Every shift in the period added up into one expected gross figure — the number you can hold against your real paycheck.</p>
+        <ol class="pin-rail" aria-hidden="true">
+          <li class="is-active"></li><li></li><li></li><li></li><li></li>
+        </ol>
+      </div>
+
+      <div class="pin-track" role="region" aria-label="ShiftProof app screens" tabindex="0">
+        <figure class="slide">
+          <div class="device" style="--crop-y:-40.10%">
+            <img src="assets/web/ShiftProof-01-KnowYourNextPaycheck.jpg" width="1000" height="2168" alt="Pay Period Detail screen showing 57.50 expected worked hours split into 40.00 regular and 17.50 overtime, for an expected gross pay of $2,730.50, above the list of shifts in that period.">
+          </div>
+          <figcaption>
+            <p class="eyebrow">Pay periods</p>
+            <h3>Know what the check should say.</h3>
+            <p>Every shift in the period added up into one expected gross figure — the number you can hold against your real paycheck.</p>
+          </figcaption>
         </figure>
-        <figure class="shot">
-          <img src="assets/web/ShiftProof-02-AutomaticOvertime.jpg" width="800" height="1734" loading="lazy" alt="Shift Detail screen for a 7:00 AM to 7:00 PM shift, breaking 11.50 worked hours into 5.50 regular and 6.00 overtime hours for $580.00 expected gross pay.">
+
+        <figure class="slide">
+          <div class="device" style="--crop-y:-42.60%">
+            <img src="assets/web/ShiftProof-02-AutomaticOvertime.jpg" width="1000" height="2168" loading="lazy" alt="Shift Detail screen for a 7:00 AM to 7:00 PM shift, breaking 11.50 worked hours into 5.50 regular and 6.00 overtime hours for $580.00 expected gross pay.">
+          </div>
+          <figcaption>
+            <p class="eyebrow">Overtime</p>
+            <h3>Past your weekly threshold, counted for you.</h3>
+            <p>Set the weekly threshold once. Regular and overtime hours are split automatically, every week.</p>
+          </figcaption>
         </figure>
-        <figure class="shot">
-          <img src="assets/web/ShiftProof-03-TrackEveryShift.jpg" width="800" height="1734" loading="lazy" alt="Month calendar for July 2026 with 7:00 AM shift chips placed across the working week of the 20th through the 25th.">
+
+        <figure class="slide">
+          <div class="device" style="--crop-y:-40.10%">
+            <img src="assets/web/ShiftProof-03-TrackEveryShift.jpg" width="1000" height="2168" loading="lazy" alt="Month calendar for July 2026 with 7:00 AM shift chips placed across the working week of the 20th through the 25th.">
+          </div>
+          <figcaption>
+            <p class="eyebrow">Schedule</p>
+            <h3>A calendar built for shift work.</h3>
+            <p>Add a shift in seconds and see the whole month at a glance.</p>
+          </figcaption>
         </figure>
-        <figure class="shot">
-          <img src="assets/web/ShiftProof-04-NeverMissPremiumPay.jpg" width="800" height="1734" loading="lazy" alt="Shift Detail for a Saturday shift worked in the Charge role, showing $770.50 expected gross pay with all 11.50 hours counted as overtime.">
+
+        <figure class="slide">
+          <div class="device" style="--crop-y:-42.60%">
+            <img src="assets/web/ShiftProof-04-NeverMissPremiumPay.jpg" width="1000" height="2168" loading="lazy" alt="Shift Detail for a Saturday shift worked in the Charge role, showing $770.50 expected gross pay with all 11.50 hours counted as overtime.">
+          </div>
+          <figcaption>
+            <p class="eyebrow">Premium pay</p>
+            <h3>Differentials and role pay, never missed.</h3>
+            <p>Night, weekend and holiday differentials, plus charge, preceptor and float premiums — all folded into the expected gross.</p>
+          </figcaption>
         </figure>
-        <figure class="shot">
-          <img src="assets/web/ShiftProof-05-MonthlyEarnings.jpg" width="800" height="1734" loading="lazy" alt="Pay tab listing two pay periods: 57.50 hours totalling $2,730.50, and 11.50 hours totalling $460.00.">
+
+        <figure class="slide">
+          <div class="device" style="--crop-y:-40.10%">
+            <img src="assets/web/ShiftProof-05-MonthlyEarnings.jpg" width="1000" height="2168" loading="lazy" alt="Pay tab listing two pay periods: 57.50 hours totalling $2,730.50, and 11.50 hours totalling $460.00.">
+          </div>
+          <figcaption>
+            <p class="eyebrow">History</p>
+            <h3>Every pay period, in one place.</h3>
+            <p>Look back across periods to see what you earned and when.</p>
+          </figcaption>
         </figure>
       </div>
     </div>
@@ -210,15 +262,6 @@
     </div>
   </section>
 
-  <!-- Closing slide -->
-  <section class="section">
-    <div class="container">
-      <figure class="shot shot-solo">
-        <img src="assets/web/ShiftProof-08-StopGuessing.jpg" width="800" height="1734" loading="lazy" alt="Pay Period Detail screen showing $2,730.50 expected gross pay, beneath a Download ShiftProof Free call to action.">
-      </figure>
-    </div>
-  </section>
-
   <!-- Disclaimer -->
   <section class="section">
     <div class="container">
@@ -259,6 +302,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=2"></script>
+  <script src="main.js?v=4"></script>
 </body>
 </html>
