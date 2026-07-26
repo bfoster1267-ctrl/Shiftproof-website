@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /drafts/
 
 Sitemap: https://bfoster1267-ctrl.github.io/Shiftproof-website/sitemap.xml

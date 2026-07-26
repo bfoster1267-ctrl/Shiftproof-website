@@ -46,7 +46,83 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=10">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Organization",
+    "name": "ShiftProof",
+    "url": "https://bfoster1267-ctrl.github.io/Shiftproof-website/",
+    "logo": "https://bfoster1267-ctrl.github.io/Shiftproof-website/assets/ShiftProof-01-KnowYourNextPaycheck.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "WebSite",
+    "name": "ShiftProof",
+    "url": "https://bfoster1267-ctrl.github.io/Shiftproof-website/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is ShiftProof?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ShiftProof is an iOS app that helps hourly workers track their shifts and calculate their expected gross pay — including overtime, differentials, and role premiums. You enter your shifts and rates, and ShiftProof does the math so you can compare your expected pay against your actual paycheck."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ShiftProof calculate my taxes or take-home pay?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. ShiftProof calculates gross pay only — the total you earn before taxes, deductions, or other withholdings. It does not calculate taxes, net/take-home pay, or anything related to payroll withholding."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is my data stored?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All your data — shifts, rates, workplaces, differentials, and role premiums — is stored locally on your iPhone only. It is never transmitted to a server, cloud, or third party."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is overtime calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ShiftProof calculates weekly overtime based on a threshold you set (default 40 hours per week). Hours worked beyond that threshold in a week are classified as overtime. ShiftProof does not calculate daily overtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ShiftProof tell me if I was underpaid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ShiftProof shows you the difference between your expected gross pay and your actual paycheck. It does not provide legal advice or determine whether you were actually underpaid — always verify with your employer or payroll department."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ShiftProof work on Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. ShiftProof is an iOS app and requires an iPhone with iOS 17 or later."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css?v=11">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%235C8DFF'>$</text></svg>">
 </head>
 <body>
@@ -57,6 +133,7 @@
       <nav class="nav-links" aria-label="Main">
         <ul>
           <li><a href="#features">Features</a></li>
+          <li><a href="articles/">Guides</a></li>
           <li><a href="privacy.html">Privacy</a></li>
           <li><a href="support.html">Support</a></li>
         </ul>
@@ -74,6 +151,78 @@
         <p class="subheading">Enter your shifts. ShiftProof calculates your expected gross pay — overtime, differentials, and premiums included — so you can check it against your real paycheck.</p>
         <a href="#" class="btn btn-primary">Download on the App Store</a>
         <!-- TODO: Update App Store URL to actual link -->
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" aria-labelledby="how-it-works-heading">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">HOW IT WORKS</p>
+        <h2 id="how-it-works-heading">Three steps to your expected gross pay.</h2>
+      </div>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step-number">1</span>
+          <h3>Set your rates</h3>
+          <p>Enter your hourly rate, your weekly overtime threshold, and any night, weekend, or holiday differentials. Add role premiums like charge, preceptor, or float — once, per workplace.</p>
+        </li>
+        <li class="step">
+          <span class="step-number">2</span>
+          <h3>Add your shifts</h3>
+          <p>Tap shifts onto the calendar as you're scheduled — or as you work them. Each one picks up your rates and differentials automatically.</p>
+        </li>
+        <li class="step">
+          <span class="step-number">3</span>
+          <h3>Compare with your paycheck</h3>
+          <p>ShiftProof totals every shift in the pay period into one expected gross figure. Hold it against your real paycheck and see if the numbers agree.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Worked Example
+       Mirrors the numbers shown in gallery slide 01 and 04. Screenshots
+       aren't indexable text, so the same real pay period is repeated here
+       as semantic HTML — the only copy of these numbers a search engine or
+       screen reader can actually read. -->
+  <section class="section" aria-labelledby="worked-example-heading">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">A REAL PAY PERIOD</p>
+        <h2 id="worked-example-heading">From gross pay to five shifts, line by line.</h2>
+        <p class="subheading">No black-box estimate — every shift counted, every premium applied.</p>
+      </div>
+
+      <div class="worked-example glass-card">
+        <div class="worked-example-header">
+          <span>Jul 20 – Jul 26, 2026</span>
+          <span class="worked-example-total">$2,730.50</span>
+        </div>
+        <dl class="worked-example-rows">
+          <div class="worked-example-row">
+            <dt>Expected worked hours</dt>
+            <dd>57.50</dd>
+          </div>
+          <div class="worked-example-row">
+            <dt>Regular hours</dt>
+            <dd>40.00</dd>
+          </div>
+          <div class="worked-example-row">
+            <dt>Overtime hours <span class="worked-example-note">(past the 40-hr weekly threshold)</span></dt>
+            <dd>17.50</dd>
+          </div>
+          <div class="worked-example-row worked-example-highlight">
+            <dt>Saturday shift, Charge role <span class="worked-example-note">(weekend differential + charge premium)</span></dt>
+            <dd>$770.50</dd>
+          </div>
+          <div class="worked-example-row worked-example-row-total">
+            <dt>Expected gross pay</dt>
+            <dd>$2,730.50</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
@@ -251,12 +400,86 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-intro">
+        <p class="eyebrow">FREQUENTLY ASKED</p>
+        <h2 id="faq-heading">Questions people ask before downloading.</h2>
+      </div>
+
+      <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What is ShiftProof?</span>
+          <span class="faq-toggle">⌄</span>
+        </div>
+        <div class="faq-answer">
+          <p>ShiftProof is an iOS app that helps hourly workers track their shifts and calculate their expected gross pay — including overtime, differentials, and role premiums. You enter your shifts and rates, and ShiftProof does the math so you can compare your expected pay against your actual paycheck.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Does ShiftProof calculate my taxes or take-home pay?</span>
+          <span class="faq-toggle">⌄</span>
+        </div>
+        <div class="faq-answer">
+          <p>No. ShiftProof calculates <strong>gross pay only</strong> — the total you earn before taxes, deductions, or other withholdings. It does not calculate taxes, net/take-home pay, or anything related to payroll withholding.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Where is my data stored?</span>
+          <span class="faq-toggle">⌄</span>
+        </div>
+        <div class="faq-answer">
+          <p>All your data — shifts, rates, workplaces, differentials, and role premiums — is stored <strong>locally on your iPhone only</strong>. It is never transmitted to a server, cloud, or third party.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How is overtime calculated?</span>
+          <span class="faq-toggle">⌄</span>
+        </div>
+        <div class="faq-answer">
+          <p>ShiftProof calculates <strong>weekly overtime</strong> based on a threshold you set (default 40 hours per week). Hours worked beyond that threshold in a week are classified as overtime. ShiftProof does <strong>not</strong> calculate daily overtime.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Does ShiftProof tell me if I was underpaid?</span>
+          <span class="faq-toggle">⌄</span>
+        </div>
+        <div class="faq-answer">
+          <p>ShiftProof shows you the <strong>difference between your expected gross pay and your actual paycheck</strong>. It does <strong>not</strong> provide legal advice or determine whether you were actually underpaid — always verify with your employer or payroll department.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Does ShiftProof work on Android?</span>
+          <span class="faq-toggle">⌄</span>
+        </div>
+        <div class="faq-answer">
+          <p>No. ShiftProof is an iOS app and requires an iPhone with iOS 17 or later.</p>
+        </div>
+      </div>
+      </div>
+
+      <p class="faq-more">More questions? Visit the full <a href="support.html">Support &amp; FAQ</a> page.</p>
+    </div>
+  </section>
+
   <!-- Final CTA -->
   <section class="section-hero">
     <div class="container">
       <div class="hero-text">
         <p class="eyebrow">READY?</p>
-        <h1>Stop guessing.</h1>
+        <h2 class="cta-heading">Stop guessing.</h2>
         <p class="subheading">Know exactly what your next paycheck should be.</p>
         <a href="#" class="btn btn-primary">Download on the App Store</a>
         <!-- TODO: Update App Store URL to actual link -->
@@ -280,6 +503,7 @@
         <h4>Product</h4>
         <ul>
           <li><a href="#features">Features</a></li>
+          <li><a href="articles/">Guides</a></li>
           <li><a href="privacy.html">Privacy</a></li>
           <li><a href="terms.html">Terms</a></li>
         </ul>
@@ -304,6 +528,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=10"></script>
+  <script src="main.js?v=11"></script>
 </body>
 </html>

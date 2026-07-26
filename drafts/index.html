@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draft queue – ShiftProof (internal)</title>
+  <!-- This page is intentionally excluded from search: robots meta below AND
+       a Disallow rule in /robots.txt. It exists only so Brock can read queued
+       drafts on his phone and reply in chat with which to publish. Nothing
+       here is a finished, reviewed page. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="../styles.css?v=11">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%235C8DFF'>$</text></svg>">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">SHIFTPROOF</a>
+      <nav class="nav-links" aria-label="Main">
+        <ul>
+          <li><a href="../articles/">Guides</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container policy-content">
+      <h1>Draft queue</h1>
+      <p><em>Internal review page. Not indexed, not linked from anywhere on the public site.</em></p>
+
+      <p>Drafts land here after the weekly content agent runs. Each one is a candidate article, not a finished page — nothing here has been fact-checked against the accuracy rules yet.</p>
+
+      <h2>How to review</h2>
+      <ol>
+        <li>Open this page on your phone.</li>
+        <li>Read the queued drafts below.</li>
+        <li>Reply in chat: <em>"publish 2 and 4, kill 3"</em> (or however you want to sort them) — no git, no files to touch.</li>
+        <li>Approved drafts get merged into <code>/articles/</code>, added to the sitemap, and linked from the Guides index. Rejected ones are deleted from this queue.</li>
+      </ol>
+
+      <h2>Standing rules every draft must follow</h2>
+      <ul>
+        <li>Gross pay only — never taxes, withholding, or take-home pay.</li>
+        <li>Weekly overtime only — never claim ShiftProof calculates daily overtime.</li>
+        <li>Never state or imply a reader is "owed" money, "underpaid," or a victim of wage theft. Use "expected gross," "estimated difference," "compare with your employer."</li>
+        <li>iOS only — never imply Android support.</li>
+        <li>Any legal or payroll claim stays general and cites its source; never state-specific legal advice.</li>
+        <li>If the agent is unsure of a claim, it should flag it here rather than assert it.</li>
+      </ul>
+
+      <h2>Queue</h2>
+      <p id="queue-empty"><em>No drafts queued yet.</em></p>
+
+      <!--
+        AGENT: append one <article class="draft-item"> block per draft below
+        this comment, inside a <div id="queue-list">. Do not remove
+        #queue-empty by hand — leave it; the block below is a template:
+
+        <div id="queue-list">
+          <article class="draft-item">
+            <h3>[Working title]</h3>
+            <p class="article-meta">Drafted [date] · [word count] words · sources: [list]</p>
+            <p>[2-3 sentence summary of the angle and why it fits the backlog]</p>
+            <details><summary>Read full draft</summary>
+              <div>[full draft body as HTML]</div>
+            </details>
+          </article>
+        </div>
+      -->
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ShiftProof — internal page, not part of the public site.</p>
+    </div>
+  </footer>
+</body>
+</html>
