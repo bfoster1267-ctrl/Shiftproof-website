@@ -596,37 +596,37 @@ footer {
   }
 }
 
-/* Dark Mode Support (though site is dark by default) */
+/* Force dark mode - this is the brand theme */
 @media (prefers-color-scheme: light) {
+  /* Light mode users still get dark theme - this is intentional branding */
   body {
-    background: linear-gradient(165deg, #f8f9ff 0%, #f0f4ff 35%, #e8f0ff 70%, #e0e8ff 100%);
+    background: linear-gradient(165deg, var(--color-bg-gradient-1) 0%, var(--color-bg-gradient-2) 35%, var(--color-bg-gradient-3) 70%, var(--color-bg-gradient-4) 100%) !important;
+    background-attachment: fixed !important;
+    color: var(--color-text-primary) !important;
   }
 
   body::before {
-    background: radial-gradient(ellipse at 50% 20%, rgba(92, 141, 255, 0.15), transparent 60%);
-  }
-
-  :root {
-    --color-text-primary: #0a0e1a;
-    --color-text-secondary: #4a5a8a;
-    --color-glass-bg: rgba(255, 255, 255, 0.4);
-    --color-glass-border: rgba(92, 141, 255, 0.2);
+    background: radial-gradient(ellipse at 50% 20%, rgba(70, 132, 255, 0.28), transparent 60%) !important;
   }
 
   header {
-    background: rgba(255, 255, 255, 0.7);
-    border-bottom-color: rgba(92, 141, 255, 0.1);
+    background: rgba(6, 10, 22, 0.7) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
   }
 
   .glass-card,
   .faq-item {
-    background: rgba(255, 255, 255, 0.5);
-    border-color: rgba(92, 141, 255, 0.2);
+    background: var(--color-glass-bg) !important;
+    border-color: var(--color-glass-border) !important;
   }
 
   .privacy-strip,
   .disclaimer {
-    background: rgba(92, 141, 255, 0.05);
-    border-color: rgba(92, 141, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  a {
+    color: var(--color-brand-blue) !important;
   }
 }
