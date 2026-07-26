@@ -24,9 +24,12 @@ conversion data after the app is live, not by drafting filler now.
       roughly in priority order. Pull the next one when the queue in
       `/drafts/` is empty; don't draft ahead of review capacity.
 
+## Drafted, pending review
+
+- **Holiday pay across different industries** — drafted 2026-07-26, staged in `/drafts/` for review
+
 ## Backlog
 
-- **Holiday pay across different industries** — how holiday differentials commonly work outside healthcare (retail, hospitality, warehouse), since the cornerstone set leans healthcare-flavored examples
 - **What counts as a "shift" for overtime purposes** — split shifts, on-call time, travel between sites; a common point of confusion
 - **Reading a pay stub, line by line** — general literacy piece (gross, YTD, differential line items), staying strictly on the gross side, never explaining tax lines
 - **Multiple workplaces and pay periods** — how to track pay across two employers with different schedules (ties to the Pro "unlimited workplaces" feature — write this once that feature has real user feedback)
