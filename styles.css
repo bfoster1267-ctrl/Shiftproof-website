@@ -235,7 +235,7 @@ header {
 /* ==========================================================================
    Device gallery
    The source images are 1290x2796 App Store compositions. Measured from them,
-   the phone occupies exactly 759 x 1620 at x 265, with an 82px corner radius.
+   the phone occupies exactly 759 x 1612 at x 265, with an 82px corner radius.
    .device windows onto precisely that box, so none of the composition's own
    background comes with it.
 
@@ -249,15 +249,19 @@ header {
    Percentages are the device box expressed against the container:
      width  1290/759 = 169.960%
      left   -265/759 = -34.914%
-     top    -deviceTop/1620 = --crop-y, the one per-slide value
-     radius 82/759 and 82/1620, so it stays 82px at any rendered size
+     top    -deviceTop/1612 = --crop-y, the one per-slide value
+     radius 82/759 and 82/1612, so it stays 82px at any rendered size
+
+   Measure these from the image; do not derive them from the white screen's
+   bounds. Deriving cost 24px off the bottom of the phone, which put the crop
+   edge through the screen instead of the bezel.
    ========================================================================== */
 .device {
   position: relative;
   width: 100%;
-  aspect-ratio: 759 / 1620;
+  aspect-ratio: 759 / 1612;
   overflow: hidden;
-  border-radius: 10.804% / 5.062%;
+  border-radius: 10.804% / 5.087%;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(6, 10, 22, 0.4);
 }
 
@@ -266,7 +270,7 @@ header {
   width: 169.960%;
   height: auto;
   left: -34.914%;
-  top: var(--crop-y, -57.53%);
+  top: var(--crop-y, -59.553%);
   display: block;
 }
 
