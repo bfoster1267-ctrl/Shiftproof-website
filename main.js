@@ -211,6 +211,11 @@ function initPinnedGallery() {
    * scroll position once per frame cannot wedge and costs nothing when idle.
    */
   function frame() {
+    // Re-check the mode here rather than trusting resize/matchMedia events
+    // alone: if either is missed the desktop pin stays applied at phone widths,
+    // which hides the per-slide captions and leaves the section unusable.
+    if ((wide.matches && !calm.matches) !== enabled) sync();
+
     if (enabled) {
       const y = window.scrollY;
       if (y !== lastY) {
