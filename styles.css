@@ -234,71 +234,104 @@ header {
 
 /* ==========================================================================
    Device gallery
-   The source images are 1290x2796 App Store compositions in which the phone
-   occupies only x 265-1024. .device windows onto a 980x1960 crop (a clean 1:2)
-   so only the device shows and the headlines can be real web type.
-   Percentages below are that crop expressed against the container:
-     width  1290/980            = 131.633%
-     left  -155/980             = -15.816%
-     top   -offset/(2 * 980)    = --crop-y, the one per-slide value
+   The source images are 1290x2796 App Store compositions. Measured from them,
+   the phone occupies exactly 759 x 1620 at x 265, with an 82px corner radius.
+   .device windows onto precisely that box, so none of the composition's own
+   background comes with it.
+
+   That matters: the comp carries a steep internal gradient (rgb(10,20,43) at
+   its top through rgb(19,41,82) at its bottom) while the page background is a
+   fixed gradient running a different direction. Any comp background left in
+   frame can only match the page along one horizontal line, and reads as a
+   rectangular patch everywhere else. Cropping it out is the only real fix —
+   an edge feather cannot hide a mismatch that spans the whole box.
+
+   Percentages are the device box expressed against the container:
+     width  1290/759 = 169.960%
+     left   -265/759 = -34.914%
+     top    -deviceTop/1620 = --crop-y, the one per-slide value
+     radius 82/759 and 82/1620, so it stays 82px at any rendered size
    ========================================================================== */
 .device {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 2;
+  aspect-ratio: 759 / 1620;
   overflow: hidden;
+  border-radius: 10.804% / 5.062%;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(6, 10, 22, 0.4);
 }
 
 .device img {
   position: absolute;
-  width: 131.633%;
+  width: 169.960%;
   height: auto;
-  left: -15.816%;
-  top: var(--crop-y, -40.1%);
+  left: -34.914%;
+  top: var(--crop-y, -57.53%);
   display: block;
-  /* Feather the crop edges so the image's navy melts into the page's navy
-     instead of showing a rectangular seam. */
-  -webkit-mask-image: radial-gradient(120% 92% at 50% 50%, #000 62%, transparent 100%);
-          mask-image: radial-gradient(120% 92% at 50% 50%, #000 62%, transparent 100%);
 }
 
 /* --------------------------------------------------------------------------
-   Base layout: vertical stack of slides. This is what mobile, tablet,
-   reduced-motion and no-JS visitors get, and it must stand on its own.
+   Base layout: a horizontal swipe carousel with snap points. This is what
+   mobile, tablet, reduced-motion and no-JS visitors get, and it must stand on
+   its own — no scroll-jacking on touch, where it fights native momentum.
+
+   Deliberately not pinned on phones: pinning makes the device share one
+   viewport height with the headline, shrinking it to ~225px, at which point
+   the in-app figures stop being readable. Those figures are the pitch.
    -------------------------------------------------------------------------- */
 .pin {
   padding: 5rem 0;
 }
 
 .pin-stage {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
 }
 
-/* The left-hand cross-fading copy is a desktop-only affordance; in the base
-   layout each slide carries its own caption instead. */
+/* The cross-fading copy is a desktop-only affordance; on mobile each slide
+   carries its own caption and only the rail is kept from this block. */
 .pin-copy {
+  order: 2;
+}
+
+.pin-copy [data-copy] {
   display: none;
 }
 
 .pin-track {
   display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  flex-direction: row;
+  gap: 1.5rem;
   list-style: none;
+  overflow-x: auto;
+  /* Both slides peek in at the edges, which is the affordance that says
+     "swipe me"; the padding lets the first and last still reach centre. */
+  padding-inline: 11vw;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pin-track::-webkit-scrollbar {
+  display: none;
 }
 
 .slide {
   margin: 0;
+  flex: 0 0 min(78vw, 420px);
+  scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  /* Opacity only, never scale: animating scale inside a snap container
+     fights the snap and produces visible jitter on touch. */
+  opacity: 0.55;
+  transition: opacity 0.35s ease;
 }
 
-.slide .device {
-  max-width: 340px;
+.slide.is-active {
+  opacity: 1;
 }
 
 .slide figcaption {
@@ -319,8 +352,26 @@ header {
   line-height: 1.6;
 }
 
+/* Shown in both modes — on mobile it sits under the carousel, on desktop
+   under the copy column. */
 .pin-rail {
-  display: none;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin-top: 2.5rem;
+}
+
+.pin-rail li {
+  width: 2.25rem;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background 0.3s ease;
+}
+
+.pin-rail li.is-active {
+  background: var(--color-brand-blue);
 }
 
 .pin-track:focus-visible {
@@ -353,8 +404,13 @@ header {
 
 .pin.is-pinned .pin-copy {
   display: block;
+  order: 0;
   flex: 0 0 30%;
   max-width: 26rem;
+}
+
+.pin.is-pinned .pin-copy [data-copy] {
+  display: block;
 }
 
 .pin.is-pinned .pin-copy h2 {
@@ -379,22 +435,7 @@ header {
 }
 
 .pin.is-pinned .pin-rail {
-  display: flex;
-  gap: 0.5rem;
-  list-style: none;
-  margin-top: 2.5rem;
-}
-
-.pin.is-pinned .pin-rail li {
-  width: 2.25rem;
-  height: 3px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  transition: background 0.3s ease;
-}
-
-.pin.is-pinned .pin-rail li.is-active {
-  background: var(--color-brand-blue);
+  justify-content: flex-start;
 }
 
 /* The track's own clipping window. Without it, slides translating leftwards
@@ -406,17 +447,21 @@ header {
   align-self: center;
 }
 
+/* Reset the carousel defaults: while pinned, position comes from a transform,
+   so native scrolling and snapping must be off. */
 .pin.is-pinned .pin-track {
-  flex-direction: row;
   align-items: center;
   gap: 3.5rem;
   overflow: visible;
+  padding-inline: 0;
+  scroll-snap-type: none;
   will-change: transform;
 }
 
 .pin.is-pinned .slide {
   flex: 0 0 auto;
   gap: 0;
+  scroll-snap-align: none;
   opacity: 0.4;
   transform: scale(0.93);
   transition: opacity 0.45s ease, transform 0.45s ease;
@@ -430,7 +475,6 @@ header {
 .pin.is-pinned .slide .device {
   width: auto;
   height: 74vh;
-  aspect-ratio: 1 / 2;
   max-width: none;
 }
 

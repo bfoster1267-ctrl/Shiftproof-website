@@ -109,6 +109,7 @@ function initPinnedGallery() {
   let viewRight = 0;
   let active = -1;
   let lastY = -1;
+  let lastX = -1;
   let enabled = false;
 
   // Copy for the left column, read out of each slide's own caption so the two
@@ -191,8 +192,23 @@ function initPinnedGallery() {
 
     track.style.transform = 'translate3d(' + (-progress * maxShift).toFixed(2) + 'px, 0, 0)';
 
-    // Whichever slide is nearest the centre of the visible track wins focus.
-    const centre = (viewLeft + viewRight) / 2;
+    focusNearestSlide();
+  }
+
+  /*
+   * Whichever slide sits nearest the centre of the visible area wins focus.
+   * Same rule in both modes; only the definition of "visible area" differs —
+   * the clipping viewport while pinned, the scroller itself while swiping.
+   */
+  function focusNearestSlide() {
+    let centre;
+    if (enabled) {
+      centre = (viewLeft + viewRight) / 2;
+    } else {
+      const box = track.getBoundingClientRect();
+      centre = (box.left + box.right) / 2;
+    }
+
     let best = 0;
     let bestDist = Infinity;
     slides.forEach(function (slide, i) {
@@ -221,6 +237,14 @@ function initPinnedGallery() {
       if (y !== lastY) {
         lastY = y;
         render();
+      }
+    } else {
+      // Carousel mode: the browser owns the scrolling, we only follow it to
+      // keep the rail and the focused slide in step with the swipe.
+      const x = track.scrollLeft;
+      if (x !== lastX) {
+        lastX = x;
+        focusNearestSlide();
       }
     }
     window.requestAnimationFrame(frame);
