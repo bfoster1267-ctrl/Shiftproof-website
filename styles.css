@@ -141,6 +141,18 @@ header {
   color: var(--color-brand-blue);
 }
 
+a:focus-visible,
+.mobile-menu-btn:focus-visible,
+.faq-question:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid rgba(92, 141, 255, 0.75);
+  outline-offset: 4px;
+}
+
+.btn:focus-visible {
+  border-radius: 999px;
+}
+
 .mobile-menu-btn {
   display: none;
   background: none;
@@ -1043,6 +1055,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 8px;
 }
 
 .faq-answer {
@@ -1137,4 +1150,3 @@ footer {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
   }
 }
-

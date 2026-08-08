@@ -6,7 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const navLinks = document.querySelector('.nav-links');
 
-  if (mobileMenuBtn) {
+  if (mobileMenuBtn && navLinks) {
+    if (!navLinks.id) {
+      navLinks.id = 'main-navigation';
+    }
+
+    mobileMenuBtn.setAttribute('aria-controls', navLinks.id);
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+
     mobileMenuBtn.addEventListener('click', function() {
       navLinks.classList.toggle('active');
       mobileMenuBtn.setAttribute('aria-expanded',
@@ -25,19 +32,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // FAQ Accordion
   const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
+  faqItems.forEach((item, index) => {
     const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
 
     if (question) {
+      if (answer && !answer.id) {
+        answer.id = `faq-answer-${index + 1}`;
+      }
+
+      question.setAttribute('tabindex', '0');
+      question.setAttribute('role', 'button');
+      if (answer) {
+        question.setAttribute('aria-controls', answer.id);
+      }
+
+      const updateFaqState = function(faqItem) {
+        const faqQuestion = faqItem.querySelector('.faq-question');
+        const faqAnswer = faqItem.querySelector('.faq-answer');
+        const isOpen = faqItem.classList.contains('open');
+
+        if (faqQuestion) {
+          faqQuestion.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+
+        if (faqAnswer) {
+          faqAnswer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        }
+      };
+
+      updateFaqState(item);
+
       question.addEventListener('click', function() {
         // Close other open items
         faqItems.forEach(other => {
           if (other !== item) {
             other.classList.remove('open');
+            updateFaqState(other);
           }
         });
         // Toggle this item
         item.classList.toggle('open');
+        updateFaqState(item);
       });
 
       // Keyboard support
@@ -47,10 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
           question.click();
         }
       });
-
-      // Make keyboard accessible
-      question.setAttribute('tabindex', '0');
-      question.setAttribute('role', 'button');
     }
   });
 
