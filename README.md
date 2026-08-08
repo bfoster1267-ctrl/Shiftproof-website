@@ -126,9 +126,9 @@ Each should be 1290×2796 px (iPhone App Store format).
 
 Before final deployment, search the code for `TODO:` comments and update:
 
-1. **App Store URL** (in `index.html`):
-   - Replace `href="#"` with your actual App Store link
-   - Example: `https://apps.apple.com/us/app/shiftproof/id1234567890`
+1. **App Store URL**:
+   - The current download destination is `https://apps.apple.com/us/app/shiftproof-pay-tracker/id6794703602`
+   - Keep CTAs pointed to the `ShiftProof Pay Tracker` listing, not other similarly named apps
 
 2. **Contact Email** (in all pages):
    - Change `support@shiftproof.app` to your actual support email
