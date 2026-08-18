@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   initPinnedGallery();
+  initBetaForm();
 });
 
 /*
@@ -310,4 +311,50 @@ function initPinnedGallery() {
 
   sync();
   window.requestAnimationFrame(frame);
+}
+
+
+// Beta application form (Ireland page).
+// Submits through fetch so the applicant never leaves the page. The TestFlight
+// link is handed over in the success state rather than offered as a button up
+// front: public-link testers join anonymously, so screening and capturing a
+// contact first is what makes the beta feedback reachable at all.
+// Without JS this stays an ordinary POST and Formspree renders its own page.
+function initBetaForm() {
+  var form = document.querySelector('.ie-form');
+  if (!form || !window.fetch || !window.FormData) return;
+
+  var done = document.getElementById('ie-form-done');
+  var error = document.getElementById('ie-form-error');
+  var button = form.querySelector('button[type="submit"]');
+  if (!done || !error || !button) return;
+
+  var label = button.textContent;
+
+  form.addEventListener('submit', function (event) {
+    // Let the browser show its own validation UI before we take over.
+    if (!form.checkValidity()) return;
+    event.preventDefault();
+
+    error.hidden = true;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    }).then(function (response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      form.hidden = true;
+      done.hidden = false;
+      done.setAttribute('tabindex', '-1');
+      done.focus();
+    }).catch(function () {
+      // Never strand an applicant mid-signup — give them a way through.
+      error.hidden = false;
+      button.disabled = false;
+      button.textContent = label;
+    });
+  });
 }
