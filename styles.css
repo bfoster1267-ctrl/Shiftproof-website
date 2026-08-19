@@ -1338,9 +1338,12 @@ footer {
   /* The site's .steps is a 3-up. This page's first list has four, which would
      otherwise orphan the last item on its own row. */
   .steps-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Four screens now, so a 3-up would orphan the last one — same fix as
+     .steps-four above. The max-width keeps each device at roughly the size it
+     rendered at when this was a 3-up across the full container. */
   .ie-screens {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 920px;
     gap: 2.5rem;
   }
   .ie-two-up { grid-template-columns: repeat(2, 1fr); }
