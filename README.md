@@ -7,7 +7,12 @@ Served by GitHub Pages from `main` at the repository root. The repository is
 still named `Shiftproof-website` and the live URL is still
 `https://bfoster1267-ctrl.github.io/Shiftproof-website/` — the app was called
 ShiftProof until the 1.4 rebrand, and the repository name is deliberately not
-being churned. See `tools/README-domain.md` for the move to `wagetally.ie`.
+being churned.
+
+The canonical domain is **`wage-tally.com`**, and this branch is prepared for it
+but not yet live on it. Ireland is `/ie/` on that domain rather than a `.ie`
+address; `wagetally.co.uk` is reserved for a future UK launch and must not be
+configured. See `tools/README-domain.md`.
 
 No build step. Edit the HTML, commit, push.
 
@@ -16,7 +21,7 @@ No build step. Edit the HTML, commit, push.
 | Path | What it is |
 |---|---|
 | `index.html` | Homepage. The general product story, in dollars, plus an Ireland doorway under the hero. |
-| `ireland-beta.html` | Ireland/HSE tester recruitment. The page outreach links to. |
+| `ie/index.html` | Ireland/HSE tester recruitment, served at `/ie/`. The page outreach links to. |
 | `articles/` | Five guides plus an index. |
 | `privacy.html` `terms.html` `support.html` | Policy and FAQ. |
 | `styles.css` | Everything. One stylesheet, cache-busted with `?v=N` in every page. |
@@ -25,6 +30,7 @@ No build step. Edit the HTML, commit, push.
 | `assets/web/` | 1400×3034 JPEGs — what the pages actually load. |
 | `drafts/` | Not linked, and `Disallow`ed in `robots.txt`. |
 | `tools/` | Generators and runbooks; nothing here is served as part of the site. |
+| `CNAME` | `wage-tally.com`. Whichever branch Pages deploys, this file *sets* the custom domain — see `tools/README-domain.md` before merging. |
 
 **Bump `?v=N` on `styles.css` in every page whenever the stylesheet changes**,
 or returning visitors keep the old one.
@@ -51,9 +57,10 @@ a third-party 404.
 
 ## Contact
 
-The site publishes `bfoster1267@gmail.com`. `hello@wagetally.ie` is intended but
-does not work yet — neither domain has an MX record. Do not swap the address
-over until mail actually round-trips.
+The site publishes `bfoster1267@gmail.com`. A professional mailbox on
+`wage-tally.com` is being set up separately; the domain has no MX record yet.
+**Do not swap the address anywhere until a test message has both sent and
+received successfully.** No dead addresses get published.
 
 ## Local testing
 

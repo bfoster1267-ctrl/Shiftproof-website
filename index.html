@@ -9,9 +9,16 @@
   <!-- Open Graph -->
   <meta property="og:title" content="WageTally – Know Your Next Paycheck">
   <meta property="og:description" content="Calculate your expected gross pay automatically. Track shifts, overtime, differentials, and premiums.">
-  <meta property="og:image" content="https://bfoster1267-ctrl.github.io/Shiftproof-website/assets/WageTally-og.jpg">
+  <meta property="og:image" content="https://wage-tally.com/assets/WageTally-og.jpg">
   <meta property="og:type" content="website">
-  <link rel="canonical" href="https://bfoster1267-ctrl.github.io/Shiftproof-website/">
+  <link rel="canonical" href="https://wage-tally.com/">
+
+  <!-- Country targeting. WageTally has no .ie domain, so the Ireland signal has
+       to come from hreflang rather than a ccTLD. The set is reciprocal — /ie/
+       carries the identical block — which is what makes it valid. -->
+  <link rel="alternate" hreflang="en-IE" href="https://wage-tally.com/ie/">
+  <link rel="alternate" hreflang="en" href="https://wage-tally.com/">
+  <link rel="alternate" hreflang="x-default" href="https://wage-tally.com/">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -53,8 +60,8 @@
     "@context": "https://schema.org/",
     "@type": "Organization",
     "name": "WageTally",
-    "url": "https://bfoster1267-ctrl.github.io/Shiftproof-website/",
-    "logo": "https://bfoster1267-ctrl.github.io/Shiftproof-website/assets/WageTally-og.jpg"
+    "url": "https://wage-tally.com/",
+    "logo": "https://wage-tally.com/assets/WageTally-og.jpg"
   }
   </script>
 
@@ -63,7 +70,7 @@
     "@context": "https://schema.org/",
     "@type": "WebSite",
     "name": "WageTally",
-    "url": "https://bfoster1267-ctrl.github.io/Shiftproof-website/"
+    "url": "https://wage-tally.com/"
   }
   </script>
 
@@ -136,7 +143,7 @@
         <ul>
           <li><a href="#features">Features</a></li>
           <li><a href="articles/">Guides</a></li>
-          <li><a href="ireland-beta.html">Ireland Beta</a></li>
+          <li><a href="ie/">Ireland Beta</a></li>
           <li><a href="privacy.html">Privacy</a></li>
           <li><a href="support.html">Support</a></li>
         </ul>
@@ -157,9 +164,10 @@
     </div>
   </section>
 
-  <!-- Ireland band. This page is what wagetally.ie will serve at its root, so a
+  <!-- Ireland band. There is no .ie domain, so Ireland lives at /ie/ on the
+       global domain and this page is what wage-tally.com serves at its root — a
        nurse arriving from an outreach message has to find something built for
-       her without hunting the nav — everything below here is the US story, in
+       her without hunting the nav. Everything below here is the US story, in
        dollars, and the Irish build is a beta on TestFlight rather than a
        storefront listing. Kept to one card so it reads as a doorway, not a
        competing pitch. -->
@@ -169,7 +177,7 @@
         <p class="eyebrow">Ireland Beta</p>
         <h2 id="ireland-band-heading">Working in the Irish health service?</h2>
         <p>There's a version of WageTally built around HSE pay: your grade and pay point taken from the published salary scales, and night duty, twilight, Saturday and Sunday premiums worked out from the hours you actually rostered. It isn't on the Irish App Store — it's a TestFlight beta, and we're looking for nurses and midwives to test it against their own payslips.</p>
-        <a href="ireland-beta.html" class="btn btn-primary">See the Ireland beta</a>
+        <a href="ie/" class="btn btn-primary">See the Ireland beta</a>
       </div>
     </div>
   </section>
@@ -522,7 +530,7 @@
         <ul>
           <li><a href="#features">Features</a></li>
           <li><a href="articles/">Guides</a></li>
-          <li><a href="ireland-beta.html">Ireland Beta</a></li>
+          <li><a href="ie/">Ireland Beta</a></li>
           <li><a href="privacy.html">Privacy</a></li>
           <li><a href="terms.html">Terms</a></li>
         </ul>
@@ -547,6 +555,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=13"></script>
+  <script src="main.js?v=14"></script>
 </body>
 </html>
