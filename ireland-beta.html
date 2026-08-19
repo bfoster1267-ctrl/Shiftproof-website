@@ -213,9 +213,13 @@
       </div>
 
       <div class="glass-card ie-form-card">
-        <!-- FORMSPREE ENDPOINT: replace YOUR_FORM_ID below with the endpoint from
-             formspree.io once the form is created. Nothing else needs to change. -->
-        <form class="ie-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <!-- The endpoint lives in ONE place: BETA_FORM_ENDPOINT at the top of
+             main.js. It is deliberately empty until a real form exists, and
+             there is no action="" fallback here on purpose — a placeholder
+             endpoint would post applicants to a third-party 404 page. While the
+             endpoint is empty, main.js intercepts the submit and shows them a
+             route that actually works. -->
+        <form class="ie-form" method="POST">
           <div class="ie-field">
             <label for="name">Your name</label>
             <input type="text" id="name" name="name" autocomplete="name" required>
@@ -251,6 +255,9 @@
 
           <button type="submit" class="btn btn-primary">Apply to join</button>
           <p class="ie-hint ie-form-privacy">This form sends your name, email and answers to us by email through Formspree, the service that handles the form. We use it to contact you about the beta and nothing else. It's separate from the app — the app itself has no account and sends nothing anywhere.</p>
+          <noscript>
+            <p class="ie-hint">This form needs JavaScript to send. With it switched off, email <a href="mailto:bfoster1267@gmail.com">bfoster1267@gmail.com</a> instead — your name, whether you're a nurse or midwife, and whether you're paid under HSE Public Health Service arrangements is all we need. You can <a href="https://testflight.apple.com/join/f9T3AmDC">install the beta on TestFlight</a> straight away either way.</p>
+          </noscript>
         </form>
 
         <!-- Replaces the form after a successful submit. The TestFlight link is
@@ -261,6 +268,19 @@
           <p>Open this on your iPhone and TestFlight will install WageTally:</p>
           <a class="btn btn-primary" href="https://testflight.apple.com/join/f9T3AmDC">Install the beta</a>
           <p class="ie-hint">We'll be in touch by email in a day or two. If the link gives you any trouble, just reply and we'll sort it out.</p>
+        </div>
+
+        <!-- Shown instead of a submit while BETA_FORM_ENDPOINT is empty. It says
+             plainly that nothing was sent, which the error state above cannot do
+             honestly — that one blames a transient fault. TestFlight is revealed
+             here even though the design normally screens first, because the link
+             is already public in "Getting the app" above and stranding someone is
+             the worse outcome. -->
+        <div class="ie-form-done" id="ie-form-unconfigured" hidden>
+          <h3>Nothing was sent — and that's our fault, not yours.</h3>
+          <p>The application form isn't connected to anything yet. Your answers stayed in your browser. Both of these work right now:</p>
+          <a class="btn btn-primary" href="https://testflight.apple.com/join/f9T3AmDC">Install the beta on TestFlight</a>
+          <p class="ie-hint">Then email <a id="ie-form-mailto" href="mailto:bfoster1267@gmail.com">bfoster1267@gmail.com</a> so we know who you are and can follow up — that link opens a message with the answers you just typed already in it. Nothing is sent until you press send in your own mail app.</p>
         </div>
       </div>
     </div>

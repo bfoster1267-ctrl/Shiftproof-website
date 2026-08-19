@@ -1,4 +1,4 @@
-# ShiftProof Marketing Website
+# WageTally Marketing Website
 
 A production-ready, static marketing website for ShiftProof — an iOS app that helps hourly workers track shifts and calculate expected gross pay.
 

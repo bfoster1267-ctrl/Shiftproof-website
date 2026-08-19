@@ -1,5 +1,16 @@
-// ShiftProof Website — Main Script
+// WageTally Website — Main Script
 // Minimal vanilla JS for mobile menu and accessibility
+
+// The Ireland beta form's endpoint, and the only line to change to switch the
+// form on. Create a form at formspree.io (or any service that accepts a POST of
+// FormData and answers JSON), then paste its endpoint here, e.g.
+//   var BETA_FORM_ENDPOINT = 'https://formspree.io/f/abcdwxyz';
+//
+// While it is empty the form does not pretend to work: it never posts anywhere,
+// and submitting shows the applicant the TestFlight link and a pre-filled email
+// instead. Do not put a placeholder id here — the previous one posted people to
+// a third-party 404.
+var BETA_FORM_ENDPOINT = '';
 
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
@@ -330,11 +341,30 @@ function initBetaForm() {
   if (!done || !error || !button) return;
 
   var label = button.textContent;
+  var endpoint = (typeof BETA_FORM_ENDPOINT === 'string' ? BETA_FORM_ENDPOINT : '').trim();
+
+  // No endpoint means no submission, ever. Setting form.action only when one
+  // exists keeps a JS-less browser from posting into the void as well.
+  if (endpoint) {
+    form.action = endpoint;
+  } else {
+    // The privacy note describes a Formspree hand-off that is not happening
+    // yet. Correct it before anyone types into the form rather than after.
+    var privacy = form.querySelector('.ie-form-privacy');
+    if (privacy) {
+      privacy.textContent = "Heads up: this form isn't connected yet, so pressing Apply won't send anything — it will show you how to reach us instead. You can install the beta on TestFlight now either way.";
+    }
+  }
 
   form.addEventListener('submit', function (event) {
     // Let the browser show its own validation UI before we take over.
     if (!form.checkValidity()) return;
     event.preventDefault();
+
+    if (!endpoint) {
+      showUnconfigured(form);
+      return;
+    }
 
     error.hidden = true;
     button.disabled = true;
@@ -357,4 +387,34 @@ function initBetaForm() {
       button.textContent = label;
     });
   });
+}
+
+// Swaps the form for a state that says nothing was sent, and hands over the two
+// routes that do work: TestFlight, and an email pre-filled with what they typed.
+// The mailto is built here rather than in markup so it carries their answers; it
+// opens their own mail client and sends nothing on its own.
+function showUnconfigured(form) {
+  var panel = document.getElementById('ie-form-unconfigured');
+  if (!panel) return;
+
+  var link = document.getElementById('ie-form-mailto');
+  if (link) {
+    var data = new FormData(form);
+    var lines = [
+      'Name: ' + (data.get('name') || ''),
+      'Nurse or midwife: ' + (data.get('role') || ''),
+      'Paid under HSE Public Health Service arrangements: ' + (data.get('hse') || ''),
+      'Has an iPhone: ' + (data.get('iphone') ? 'Yes' : 'No'),
+      '',
+      "I'd like to join the WageTally Ireland beta."
+    ];
+    link.href = link.href.split('?')[0]
+      + '?subject=' + encodeURIComponent('WageTally Ireland beta')
+      + '&body=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  form.hidden = true;
+  panel.hidden = false;
+  panel.setAttribute('tabindex', '-1');
+  panel.focus();
 }
