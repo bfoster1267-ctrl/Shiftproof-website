@@ -1,215 +1,72 @@
 # WageTally Marketing Website
 
-A production-ready, static marketing website for ShiftProof — an iOS app that helps hourly workers track shifts and calculate expected gross pay.
+Static marketing site for WageTally, an iPhone app that works out expected gross
+pay for the shifts you actually worked so you can hold it against your payslip.
 
-## What's Inside
+Served by GitHub Pages from `main` at the repository root. The repository is
+still named `Shiftproof-website` and the live URL is still
+`https://bfoster1267-ctrl.github.io/Shiftproof-website/` — the app was called
+ShiftProof until the 1.4 rebrand, and the repository name is deliberately not
+being churned. See `tools/README-domain.md` for the move to `wagetally.ie`.
 
-- **`index.html`** — Landing page with hero, features, pricing, and call-to-actions
-- **`privacy.html`** — Privacy Policy (required for App Store submission)
-- **`terms.html`** — Terms of Use
-- **`support.html`** — Support page with FAQ
-- **`styles.css`** — Complete design system (dark theme, responsive, accessible)
-- **`main.js`** — Minimal vanilla JS (mobile menu, FAQ accordion)
-- **`/assets/`** — Folder for the 8 App Store screenshots (1290×2796 each)
-- **`robots.txt`** & **`sitemap.xml`** — SEO helpers
-- **`.nojekyll`** — Tells GitHub Pages to serve files as-is
+No build step. Edit the HTML, commit, push.
 
-## Design System
+## Layout
 
-The website matches the premium, dark aesthetic of the ShiftProof iOS app:
+| Path | What it is |
+|---|---|
+| `index.html` | Homepage. The general product story, in dollars, plus an Ireland doorway under the hero. |
+| `ireland-beta.html` | Ireland/HSE tester recruitment. The page outreach links to. |
+| `articles/` | Five guides plus an index. |
+| `privacy.html` `terms.html` `support.html` | Policy and FAQ. |
+| `styles.css` | Everything. One stylesheet, cache-busted with `?v=N` in every page. |
+| `main.js` | Mobile menu, FAQ, homepage gallery, and the Ireland beta form. |
+| `assets/` | 1290×2796 App Store masters and the 1200×630 social cards. |
+| `assets/web/` | 1400×3034 JPEGs — what the pages actually load. |
+| `drafts/` | Not linked, and `Disallow`ed in `robots.txt`. |
+| `tools/` | Generators and runbooks; nothing here is served as part of the site. |
 
-- **Colors:** Deep navy gradient background with brand blue accents (#5C8DFF)
-- **Typography:** System fonts (SF Pro Display) with large, bold headlines
-- **Components:** Glass cards, pill buttons, responsive grid layouts
-- **Accessibility:** Semantic HTML, keyboard navigation, `prefers-reduced-motion` support
-- **Responsive:** Mobile-first, works on all screen sizes
+**Bump `?v=N` on `styles.css` in every page whenever the stylesheet changes**,
+or returning visitors keep the old one.
 
-## Deploying to GitHub Pages (Free Hosting)
+## The Ireland beta form
 
-### Step 1: Create a GitHub Repository
+The form posts nowhere until `BETA_FORM_ENDPOINT` at the top of `main.js` is
+set. Create a form at formspree.io, paste its endpoint there, and the normal
+AJAX path takes over. Until then the form deliberately shows applicants a panel
+saying nothing was sent, with the TestFlight link and a pre-filled email.
 
-1. Go to [github.com](https://github.com) and log in
-2. Click **New** (top-left) to create a new repository
-3. Name it: `shiftproof` or `shiftproof-website`
-4. Set to **Public**
-5. Click **Create repository**
+Do not put a placeholder id in the markup. The previous one posted applicants to
+a third-party 404.
 
-### Step 2: Clone & Add Your Files
+## Screenshots and social cards
 
-On your Mac, in Terminal:
+- `assets/WageTallyIE-Screenshot-Spec.md` — the Ireland set: how it was
+  captured, and the real data behind every figure in it.
+- `assets/ShiftProof-Screenshot-Spec.md` — the older US App Store set, still
+  used on the homepage and guides. Those files keep the old name because that is
+  what they are; the app UI inside them carries no branding, and the pages crop
+  to the device.
+- `tools/README-og.md` — regenerating the two 1200×630 `og:image` cards.
 
-```bash
-cd ~/Documents
-git clone https://github.com/YOUR_USERNAME/shiftproof.git
-cd shiftproof
-```
+## Contact
 
-Replace `YOUR_USERNAME` with your actual GitHub username.
+The site publishes `bfoster1267@gmail.com`. `hello@wagetally.ie` is intended but
+does not work yet — neither domain has an MX record. Do not swap the address
+over until mail actually round-trips.
 
-Then copy the website files into this folder:
-- `index.html`, `privacy.html`, `terms.html`, `support.html`
-- `styles.css`, `main.js`
-- `.nojekyll`, `robots.txt`, `sitemap.xml`
-- `/assets/` folder with your 8 screenshot PNGs
-
-### Step 3: Commit & Push
-
-```bash
-git add .
-git commit -m "Add ShiftProof marketing website"
-git push origin main
-```
-
-### Step 4: Enable GitHub Pages
-
-1. Go to your repo on GitHub
-2. Click **Settings** (top-right)
-3. Left sidebar → **Pages**
-4. Under "Build and deployment":
-   - Source: **Deploy from a branch**
-   - Branch: **main**
-   - Folder: **/ (root)**
-5. Click **Save**
-
-GitHub will deploy your site. Wait ~1 minute, then visit:
+## Local testing
 
 ```
-https://YOUR_USERNAME.github.io/shiftproof/
+python3 -m http.server 8000
 ```
 
-Your site is now live! 🎉
-
----
-
-## Using a Custom Domain (Optional)
-
-If you own `shiftproof.app` or another domain:
-
-1. Create a file named `CNAME` (no extension) in the repo root with one line:
-   ```
-   shiftproof.app
-   ```
-
-2. Commit and push:
-   ```bash
-   git add CNAME
-   git commit -m "Add custom domain CNAME"
-   git push origin main
-   ```
-
-3. Update your domain registrar's DNS settings:
-   - Point your domain's `A` record to GitHub's IPs (see [GitHub Docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site))
-   - Or use a `CNAME` record pointing to `YOUR_USERNAME.github.io`
-
-4. Wait for DNS to propagate (5 minutes to a few hours)
-
----
-
-## Important Setup Notes
-
-### App Store Screenshots
-
-Place your 8 App Store screenshots in `/assets/` with these exact filenames:
-
-- `ShiftProof-01-KnowYourNextPaycheck.png`
-- `ShiftProof-02-AutomaticOvertime.png`
-- `ShiftProof-03-TrackEveryShift.png`
-- `ShiftProof-04-NeverMissPremiumPay.png`
-- `ShiftProof-05-MonthlyEarnings.png`
-- `ShiftProof-06-BuiltForEveryHourlyWorker.png`
-- `ShiftProof-07-FreeToStart.png`
-- `ShiftProof-08-StopGuessing.png`
-
-Each should be 1290×2796 px (iPhone App Store format).
-
-### TODO Items to Update
-
-Before final deployment, search the code for `TODO:` comments and update:
-
-1. **App Store URL**:
-   - The current download destination is `https://apps.apple.com/us/app/shiftproof-pay-tracker/id6794703602`
-   - Keep CTAs pointed to the `ShiftProof Pay Tracker` listing, not other similarly named apps
-
-2. **Contact Email** (in all pages):
-   - Change `support@shiftproof.app` to your actual support email
-   - Or update the `mailto:` links
-
-3. **Governing Law** (in `terms.html`):
-   - Add your state and jurisdiction for legal disputes
-
----
-
-## Mobile Responsiveness
-
-The site is fully responsive:
-
-- **Mobile (< 768px):** Single column, stacked sections, touch-friendly navigation
-- **Desktop (768px+):** Multi-column layouts, larger typography, optimized spacing
-
-Test on different devices or use DevTools (Chrome F12, Safari Develop → Enter Responsive Design Mode).
-
----
+Then check: links resolve, images load, the mobile menu opens and closes, FAQ
+items expand, the beta form shows the unconfigured panel rather than a success
+state, and the console is clean.
 
 ## Accessibility
 
-The site meets WCAG 2.1 Level AA standards:
-
-- Semantic HTML (`<section>`, `<header>`, `<footer>`, etc.)
-- Sufficient color contrast (tested against white text on navy background)
-- Keyboard navigation (Tab to navigate, Enter to activate buttons)
-- Screen reader friendly (alt text on all images, aria labels)
-- `prefers-reduced-motion` support (animations disabled for users who prefer it)
-
----
-
-## Local Testing
-
-Before deploying, test locally:
-
-1. Open `index.html` directly in your browser (e.g., `File → Open`)
-   - Or use `python3 -m http.server 8000` and visit `http://localhost:8000`
-
-2. Check:
-   - All links work (internal links, footer links)
-   - Screenshots load (or placeholder boxes appear)
-   - Mobile menu opens/closes on small screens
-   - FAQ items expand/collapse
-   - No console errors
-
----
-
-## Updating Content
-
-To edit text or styling:
-
-1. Open the `.html` file in a code editor
-2. Make your changes
-3. Save and refresh your browser
-
-To update the live site:
-
-```bash
-git add .
-git commit -m "Update [what changed]"
-git push origin main
-```
-
-GitHub Pages rebuilds automatically (usually within ~30 seconds).
-
----
-
-## Support
-
-For questions about GitHub Pages deployment, see the [official GitHub Pages documentation](https://docs.github.com/en/pages).
-
-For website questions, refer to the code comments and the design system notes in `styles.css`.
-
----
-
-## License
-
-This website is part of ShiftProof. All content, design, and code are proprietary to ShiftProof.
-
----
-
-**Ready to go live?** Follow the steps above, and your marketing site will be live on GitHub Pages in minutes!
+Semantic sectioning, one `h1` per page, alt text on every image, keyboard
+navigation with visible focus rings, `aria-expanded` on the menu and FAQ
+controls, and `prefers-reduced-motion` honoured by the homepage gallery.
