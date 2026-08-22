@@ -11,6 +11,22 @@
   <link rel="canonical" href="https://wage-tally.com/privacy.html">
   <link rel="stylesheet" href="styles.css?v=16">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%235C8DFF'>$</text></svg>">
+  <!-- Google tag (gtag.js) — GA4. Consent Mode v2 defaults every storage type
+       to denied, so no analytics cookies are set. That keeps /ie/ inside the
+       ePrivacy consent rules and keeps the privacy policy accurate. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NJ8VV0837"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-8NJ8VV0837');
+  </script>
 </head>
 <body>
   <!-- Navigation -->
@@ -46,7 +62,7 @@
       <p>WageTally does not require you to create an account. There is no sign-in, no username/password, and no cloud synchronization. Your data remains on your device, under your control.</p>
 
       <h2>No Analytics, No Ads, No Tracking</h2>
-      <p>WageTally does not:</p>
+      <p>The WageTally app does not:</p>
       <ul>
         <li>Collect analytics data or usage information</li>
         <li>Display advertisements</li>
@@ -66,7 +82,7 @@
       <p>WageTally is not directed at children under 13. If you are under 13, please do not use this app. If you believe a child under 13 has used WageTally, contact us immediately using the information below.</p>
 
       <h2>Website and App Privacy</h2>
-      <p>This privacy policy covers both the WageTally iOS app and this WageTally website. The website does not use tracking pixels or cookies (except as required by your browser), does not build profiles, and does not run analytics of any kind.</p>
+      <p>This privacy policy covers both the WageTally iOS app and this WageTally website. The website uses Google Analytics (GA4) to count visits. It runs with Google Consent Mode set to denied by default, which means it sets no analytics cookies, does not build profiles, and cannot identify you individually. The app itself runs no analytics at all.</p>
       <p>The website is static, with one exception: the beta application form described below. Apart from that form, no page collects anything or communicates with any backend server beyond serving its own assets.</p>
 
       <h2>Beta Applications</h2>
