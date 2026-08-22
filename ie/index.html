@@ -274,10 +274,21 @@
             <p class="ie-hint">WageTally is iPhone only at the moment.</p>
           </div>
 
+          <!-- Spam traps, both checked server-side. "website" is a honeypot:
+               off-screen and skipped by keyboard and screen readers, so only a
+               form-filling bot ever puts anything in it. "elapsed" is how long
+               the form was open, filled by main.js on submit — nobody reads
+               five questions in under two and a half seconds. Neither is
+               required, so neither can ever block a real applicant. -->
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <input type="hidden" name="elapsed" value="">
+          <input type="hidden" name="source" value="">
+
           <p class="ie-form-error" id="ie-form-error" role="alert" hidden>That didn't send — something went wrong at our end, not yours. Email <a href="mailto:bfoster1267@gmail.com">bfoster1267@gmail.com</a> and you'll go straight on the list.</p>
 
           <button type="submit" class="btn btn-primary">Apply to join</button>
-          <p class="ie-hint ie-form-privacy">This form sends your name, email and answers to us by email through Formspree, the service that handles the form. We use it to contact you about the beta and nothing else. It's separate from the app — the app itself has no account and sends nothing anywhere.</p>
+          <p class="ie-hint ie-form-privacy">This form sends your name, email and answers to a private Google Sheet only we can open, and emails us that you applied. We use them to contact you about the beta and nothing else. It's separate from the app — the app itself has no account and sends nothing anywhere.</p>
           <noscript>
             <p class="ie-hint">This form needs JavaScript to send. With it switched off, email <a href="mailto:bfoster1267@gmail.com">bfoster1267@gmail.com</a> instead — your name, whether you're a nurse or midwife, and whether you're paid under HSE Public Health Service arrangements is all we need. You can <a href="https://testflight.apple.com/join/f9T3AmDC">install the beta on TestFlight</a> straight away either way.</p>
           </noscript>
@@ -412,6 +423,6 @@
     </div>
   </footer>
 
-  <script src="../main.js?v=14"></script>
+  <script src="../main.js?v=15"></script>
 </body>
 </html>

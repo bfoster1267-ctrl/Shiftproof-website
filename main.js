@@ -2,15 +2,17 @@
 // Minimal vanilla JS for mobile menu and accessibility
 
 // The Ireland beta form's endpoint, and the only line to change to switch the
-// form on. Create a form at formspree.io (or any service that accepts a POST of
-// FormData and answers JSON), then paste its endpoint here, e.g.
-//   var BETA_FORM_ENDPOINT = 'https://formspree.io/f/abcdwxyz';
+// form on. This is a Google Apps Script web app bound to the private "WageTally
+// Beta Signups" sheet: it validates the post, appends a row and emails us. The
+// URL is not a secret — the script takes anonymous posts by design, and the
+// sheet it writes to is never shared — so it belongs here rather than in a
+// build step this site does not have.
 //
 // While it is empty the form does not pretend to work: it never posts anywhere,
 // and submitting shows the applicant the TestFlight link and a pre-filled email
-// instead. Do not put a placeholder id here — the previous one posted people to
+// instead. Do not put a placeholder id here — an early one posted people to
 // a third-party 404.
-var BETA_FORM_ENDPOINT = '';
+var BETA_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyvjZMLKylNJXBaRnGbdmXuVjtg-6ou-5si26f2B1Ko4luGS29SlFvXVSYW2xJrnxE2/exec';
 
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
@@ -330,7 +332,9 @@ function initPinnedGallery() {
 // link is handed over in the success state rather than offered as a button up
 // front: public-link testers join anonymously, so screening and capturing a
 // contact first is what makes the beta feedback reachable at all.
-// Without JS this stays an ordinary POST and Formspree renders its own page.
+// Without JS this stays an ordinary POST. The answers still reach the sheet;
+// the applicant just lands on the endpoint's raw JSON instead of the success
+// panel, which is why the noscript block points at email as the kinder route.
 function initBetaForm() {
   var form = document.querySelector('.ie-form');
   if (!form || !window.fetch || !window.FormData) return;
@@ -341,6 +345,7 @@ function initBetaForm() {
   if (!done || !error || !button) return;
 
   var label = button.textContent;
+  var readyAt = Date.now();
   var endpoint = (typeof BETA_FORM_ENDPOINT === 'string' ? BETA_FORM_ENDPOINT : '').trim();
 
   // No endpoint means no submission, ever. Setting form.action only when one
@@ -348,7 +353,7 @@ function initBetaForm() {
   if (endpoint) {
     form.action = endpoint;
   } else {
-    // The privacy note describes a Formspree hand-off that is not happening
+    // The privacy note describes a hand-off to the sheet that is not happening
     // yet. Correct it before anyone types into the form rather than after.
     var privacy = form.querySelector('.ie-form-privacy');
     if (privacy) {
@@ -366,16 +371,34 @@ function initBetaForm() {
       return;
     }
 
+    // Spam-trap values the endpoint checks. Filled in here rather than in the
+    // markup so they carry real numbers, and so a bot posting straight at the
+    // endpoint has to guess at them.
+    var elapsedField = form.querySelector('input[name="elapsed"]');
+    if (elapsedField) elapsedField.value = String(Date.now() - readyAt);
+    var sourceField = form.querySelector('input[name="source"]');
+    if (sourceField && !sourceField.value) sourceField.value = window.location.href;
+
     error.hidden = true;
     button.disabled = true;
     button.textContent = 'Sending…';
 
+    // URLSearchParams keeps this a CORS-simple request. Apps Script has no
+    // doOptions, so anything that triggers a preflight — a JSON content type,
+    // a custom header — fails before it is even sent.
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
+      body: new URLSearchParams(new FormData(form)),
       headers: { Accept: 'application/json' }
     }).then(function (response) {
       if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    }).then(function (data) {
+      // Apps Script cannot answer with a status code — every reply is a 200,
+      // its rejections included — so the body is the only honest signal there
+      // is. A duplicate counts as success: they are already on the list, and
+      // telling them it failed would only make them apply again.
+      if (!data || data.ok !== true) throw new Error((data && data.error) || 'rejected');
       form.hidden = true;
       done.hidden = false;
       done.setAttribute('tabindex', '-1');
