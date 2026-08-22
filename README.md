@@ -57,10 +57,11 @@ a third-party 404.
 
 ## Contact
 
-The site publishes `bfoster1267@gmail.com`. A professional mailbox on
-`wage-tally.com` is being set up separately; the domain has no MX record yet.
-**Do not swap the address anywhere until a test message has both sent and
-received successfully.** No dead addresses get published.
+The site publishes `brock@wage-tally.com`. The domain now carries an MX record
+(Microsoft 365, `wagetally-com01b.mail.protection.outlook.com`) with a matching
+SPF record, which is what the earlier personal address was waiting on. The
+rule it replaced still stands: **no dead addresses get published**, so confirm
+a test message sends and receives before changing the address again.
 
 ## Local testing
 
