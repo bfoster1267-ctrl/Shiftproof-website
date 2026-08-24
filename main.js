@@ -378,6 +378,21 @@ function initBetaForm() {
     if (elapsedField) elapsedField.value = String(Date.now() - readyAt);
     var sourceField = form.querySelector('input[name="source"]');
     if (sourceField && !sourceField.value) sourceField.value = window.location.href;
+    // Referrer, as a fallback for links we could not tag with UTMs. Recorded
+    // beside `source`, never instead of it — `source` stays the exact landing
+    // URL so attribution can always be re-derived from the raw value.
+    var referrerField = form.querySelector('input[name="referrer"]');
+    if (referrerField && !referrerField.value) {
+      // Origin and path only. A referrer's query string can carry another site's
+      // session token or a reset code, and none of that belongs in our sheet.
+      // Everything attribution needs is in the host.
+      var ref = document.referrer || '';
+      if (ref) {
+        try { var parsed = new URL(ref); ref = parsed.origin + parsed.pathname; }
+        catch (err) { ref = ''; }
+      }
+      referrerField.value = ref;
+    }
 
     error.hidden = true;
     button.disabled = true;
